@@ -1,0 +1,7 @@
+{
+  "name": "PHP + MySQL Dev",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "web",
+  "workspaceFolder": "/var/www/html",
+  "postCreateCommand": "echo 'Dev container is ready!'"
+}
