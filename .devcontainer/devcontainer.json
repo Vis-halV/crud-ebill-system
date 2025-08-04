@@ -3,5 +3,6 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "web",
   "workspaceFolder": "/var/www/html",
-  "postCreateCommand": "echo 'Dev container is ready!'"
+  "postCreateCommand": "echo 'Dev container is ready!'",
+  "overrideCommand": true
 }
