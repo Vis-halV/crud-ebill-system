@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-include('config.php');
+include '../includes/config.php';
 
 // Fetch all customers from the customer table
 $sql = "SELECT * FROM customer";

@@ -1,5 +1,5 @@
 <?php
-include('config.php'); // Include the database connection
+include '../includes/config.php'; // Include the database connection
 // Collect form data
 $customer_name = isset($_POST['customer_name']) ? $_POST['customer_name'] : '';
 $contact_number = isset($_POST['contact_number']) ? $_POST['contact_number'] : '';

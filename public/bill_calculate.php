@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-include('config.php');
+include '../includes/config.php';
 
 // Fetch customers from the database to populate the dropdown menu
 $sql = "SELECT * FROM customer";
