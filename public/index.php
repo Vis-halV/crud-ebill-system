@@ -1,5 +1,6 @@
 <!-- index.php -->
 <?php
+// phpinfo(); // Display PHP configuration information for debugging purposes
 include('header.html');
 session_start();
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
