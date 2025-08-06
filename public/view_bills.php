@@ -26,17 +26,17 @@
     <h1 style="text-align:center;">Customer Bill Details</h1>
 
     <?php
-    $conn = new mysqli('localhost', 'root', 'Vish@l06076', 'ebms');
-
+    $conn = new mysqli('db', 'user', 'userpass', 'ebill_db');
+    
     include('header.html');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT c.Fname, c.Lname, SUM(b.Amount) AS Total_Bill
-            FROM customer c
-            JOIN bill b ON c.Cid = b.Cid
-            GROUP BY c.Cid";
+    $sql = "SELECT c.Fname, c.Lname, SUM(b.Amnt) AS Total_Bill
+        FROM customer c
+        JOIN bill b ON c.Cid = b.Cid
+        GROUP BY c.Cid";
 
     $result = $conn->query($sql);
 

@@ -1,25 +1,42 @@
 <?php
+session_start();
 include '../includes/config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $password = $_POST['password'];
 
-    // Check the credentials from the database
-    $sql = "SELECT * FROM admins WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($sql);
+    // Check the credentials from the database using prepared statement
+    $sql = "SELECT * FROM admins WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // User found, login successful
-        echo "Login successful!";
-        // Redirect to the registration page or another page
-        header("Location: register.php");
+        $user = $result->fetch_assoc();
+        // For now, we'll use plain text comparison (will be fixed with password hashing later)
+        if ($password === $user['password']) {
+            // Login successful - set session variables
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['logged_in'] = true;
+            
+            $stmt->close();
+            $conn->close();
+            header("Location: dashboard.php");
+            exit;
+        } else {
+            $error_message = "Invalid username or password";
+        }
     } else {
         // Invalid credentials
         $error_message = "Invalid username or password";
     }
+    
+    $stmt->close();
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>

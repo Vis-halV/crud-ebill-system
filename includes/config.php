@@ -1,16 +1,14 @@
 <?php
-
-$servername = "localhost";  // or your server IP
-$username = "root";         // MySQL username
-$password = "Vish@l06076";             // MySQL password (empty for default)
-$dbname = "ebms";           // Your database name
+$servername = "db"; // Docker service name for MySQL
+$username = "user";
+$password = "userpass";
+$dbname = "ebill_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check the database connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-// echo "Connected successfully";
 ?>

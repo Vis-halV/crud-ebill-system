@@ -12,25 +12,33 @@ $errorMessage = "";
 
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $customer_id = $_POST['customer'];
-    $bill_date = $_POST['bill_date'];
-    $amount = $_POST['amount'];
-
-    // Insert the bill data into the database
-    $sql = "INSERT INTO bill (Cid, Bill_date, Amount) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isd", $customer_id, $bill_date, $amount);
-
-    if ($stmt->execute()) {
-        $successMessage = "Bill successfully added!";
+    $customer_id = filter_input(INPUT_POST, 'customer', FILTER_VALIDATE_INT);
+    $bill_date = filter_input(INPUT_POST, 'bill_date', FILTER_SANITIZE_STRING);
+    $amount = filter_input(INPUT_POST, 'amount', FILTER_VALIDATE_FLOAT);
+    
+    // Validate input
+    if (!$customer_id || !$bill_date || !$amount) {
+        $errorMessage = "Please fill in all fields correctly.";
     } else {
-        $errorMessage = "Error adding bill: " . $conn->error;
+        // Insert the bill data into the database
+        $sql = "INSERT INTO bill (Cid, Bill_date, Amnt) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        
+        if ($stmt) {
+            $stmt->bind_param("isd", $customer_id, $bill_date, $amount);
+            
+            if ($stmt->execute()) {
+                $successMessage = "Bill successfully added!";
+            } else {
+                $errorMessage = "Error adding bill: " . $stmt->error;
+            }
+            
+            $stmt->close();
+        } else {
+            $errorMessage = "Database error: Unable to prepare statement.";
+        }
     }
-
-    $stmt->close();
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>

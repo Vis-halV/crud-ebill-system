@@ -76,7 +76,7 @@ $result = $conn->query($sql);
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            color: #black;  /* Ensure all table text is visible */
+            color: #000000;  /* Fixed: Valid CSS color value */
         }
         th, td {
             padding: 10px;
@@ -115,10 +115,14 @@ $result = $conn->query($sql);
         <?php
         // Process form submission and fetch bill details for the selected customer
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $customer_id = $_POST['customer'];
+            $customer_id = filter_input(INPUT_POST, 'customer', FILTER_VALIDATE_INT);
+            
+            if (!$customer_id) {
+                echo "<p style='color:red;'>Please select a valid customer.</p>";
+            } else {
 
             // Prepare SQL query
-            $sql = "SELECT Bill_id, Bill_date, Amount FROM bill WHERE Cid = ?";
+            $sql = "SELECT Bill_id, Bill_date, Amnt FROM bill WHERE Cid = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $customer_id);
             $stmt->execute();
@@ -139,7 +143,7 @@ $result = $conn->query($sql);
                     echo "<tr>
                             <td>" . $row['Bill_id'] . "</td>
                             <td>" . $row['Bill_date'] . "</td>
-                            <td>" . $row['Amount'] . "</td>
+                            <td>" . $row['Amnt'] . "</td>
                         </tr>";
                 }
                 echo "</table>";

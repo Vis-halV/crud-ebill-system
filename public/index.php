@@ -1,57 +1,168 @@
-<!-- index.php -->
-<?php
-// phpinfo(); // Display PHP configuration information for debugging purposes
-include('header.html');
-session_start();
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: login.php"); // Redirect to login if not authenticated
-    exit;
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Registration - EBMS</title>
+    <title>E-Bill Management System - Home</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
-<?php include('header.html'); ?> <!-- Include header content -->
+<?php include('header.html'); ?>
 
-<div class="container">
-    <h1>Customer Registration Form</h1>
-    <form action="submit.php" method="POST">
-        <label for="customer_name">Customer Name:</label>
-        <input type="text" id="customer_name" name="customer_name" placeholder="Enter full name" required>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">E-Bill Management System</h1>
+        <p class="hero-subtitle">Streamline Your Electricity Billing Process</p>
+        <p class="hero-description">Manage customers, track meter readings, generate bills, and monitor payments all in one comprehensive platform.</p>
+        <div class="hero-actions">
+            <a href="login.php" class="btn btn-primary btn-lg"><i class="fas fa-sign-in-alt"></i> Get Started</a>
+            <a href="#features" class="btn btn-outline btn-lg"><i class="fas fa-info-circle"></i> Learn More</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card">
+            <i class="fas fa-bolt hero-icon"></i>
+            <h3>Smart Billing</h3>
+            <p>Automated bill calculation based on meter readings</p>
+        </div>
+    </div>
+</section>
 
-        <label for="lname">Last Name:</label>
-        <input type="text" id="lname" name="lname" placeholder="Enter last name" required>
+<!-- Features Section -->
+<section id="features" class="features">
+    <div class="container">
+        <h2 class="section-title">Why Choose Our E-Bill System?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Customer Management</h3>
+                <p>Easily register and manage customer information with comprehensive profiles and contact details.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Meter Tracking</h3>
+                <p>Track electricity meter readings and maintain historical data for accurate billing calculations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Automated Billing</h3>
+                <p>Generate bills automatically based on consumption with customizable rates and billing periods.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Reports & Analytics</h3>
+                <p>View detailed reports and analytics to track billing trends and customer consumption patterns.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure & Reliable</h3>
+                <p>Built with security in mind, featuring secure login and data protection mechanisms.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Friendly</h3>
+                <p>Responsive design that works seamlessly across all devices and screen sizes.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <label for="contact_number">Contact Number:</label>
-        <input type="text" id="contact_number" name="contact_number" placeholder="Enter phone number" required>
+<!-- Statistics Section -->
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Customers Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Bills Generated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Uptime Guaranteed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" placeholder="Enter address" required>
+<!-- Quick Actions Section -->
+<section class="quick-actions">
+    <div class="container">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="actions-grid">
+            <a href="register.php" class="action-card">
+                <i class="fas fa-user-plus"></i>
+                <h3>Register Customer</h3>
+                <p>Add new customers to the system</p>
+            </a>
+            <a href="meter_setup.php" class="action-card">
+                <i class="fas fa-cogs"></i>
+                <h3>Setup Meter</h3>
+                <p>Configure customer meters</p>
+            </a>
+            <a href="bill_calculate.php" class="action-card">
+                <i class="fas fa-receipt"></i>
+                <h3>Calculate Bill</h3>
+                <p>Generate customer bills</p>
+            </a>
+            <a href="view_customers.php" class="action-card">
+                <i class="fas fa-list"></i>
+                <h3>View Customers</h3>
+                <p>Browse all customers</p>
+            </a>
+        </div>
+    </div>
+</section>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter email" required>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>E-Bill Management System</h3>
+                <p>Your trusted partner for efficient electricity billing management.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="register.php">Register Customer</a></li>
+                    <li><a href="view_bills.php">View Bills</a></li>
+                    <li><a href="login.php">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-envelope"></i> support@ebms.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 E-Bill Management System. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
-        <label for="connecttype">Connection Type:</label><br>
-        <label class="radio-container">
-            <input type="radio" id="connecttype" name="connecttype" value="public">
-            Public
-        </label>
-        <label class="radio-container">
-            <input type="radio" id="connecttype" name="connecttype" value="commercial">
-            Commercial
-        </label>
-        
-        <button type="submit">Submit</button>
-    </form>
-</div>
 </body>
 </html>

@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS ebill_db;
+USE ebill_db;
+
+CREATE TABLE customer (
+    Cid INT AUTO_INCREMENT PRIMARY KEY,
+    Fname VARCHAR(255) NOT NULL,
+    Lname VARCHAR(255),
+    Phno VARCHAR(15) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    Address TEXT NOT NULL,
+    Cnct_type VARCHAR(100)
+);
+
+CREATE TABLE meter (
+    Meter_id INT AUTO_INCREMENT PRIMARY KEY,
+    Mid VARCHAR(100) UNIQUE,
+    Cid INT,
+    Reading DECIMAL NOT NULL,
+    FOREIGN KEY (Cid) REFERENCES customer(Cid)
+);
+
+CREATE TABLE bill (
+    Bill_id INT AUTO_INCREMENT PRIMARY KEY,
+    Cid INT,
+    Mid VARCHAR(100),
+    Readings DECIMAL,
+    Bill_date DATE NOT NULL,
+    Amnt DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (Cid) REFERENCES customer(Cid),
+    FOREIGN KEY (Mid) REFERENCES meter(Mid)
+);
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) DEFAULT 'user'
+);
